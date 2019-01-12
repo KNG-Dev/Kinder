@@ -31,7 +31,7 @@ class CardView: UIView {
             handleChanged(gesture)
         case . ended:
             handleEnded()
-    
+    print(123)
         default:
             ()
         }
