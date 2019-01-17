@@ -8,12 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeController: UIViewController {
 
     //MARK: - Instance Properties
     let topStackView = TopNavigationStackView()
     let cardsDeckView = UIView()
     let buttonsStackView = HomeBottomControlsStackView()
+    
+    let cardViewModels: [CardViewModel] = {
+        let producers = [
+            User(name: "Kelly", age: 23, profession: "Music DJ", imageNames: ["kelly1", "kelly2", "kelly3"]),
+            Advertiser(title: "Kinder", brandName: "KNG Development", posterPhotoName: "slide_out_menu_poster"),
+            User(name: "Jane", age: 23, profession: "Music DJ", imageNames: ["jane1", "jane2", "jane3"])
+        ] as [ProducesCardViewModel]
+        
+        let viewModels = producers.map({return $0.toCardViewModel()})
+        return viewModels
+    }()
     
     //MARK: - View Life Cycle
     override func viewDidLoad() {
@@ -23,11 +34,15 @@ class ViewController: UIViewController {
     }
     
     //MARK: - Private Methods
-    private func setupDummyCards() {
-        print("Setting up dummy cards")
-        let cardView = CardView(frame: .zero)
-        cardsDeckView.addSubview(cardView)
-        cardView.fillSuperview()
+    fileprivate func setupDummyCards() {
+        
+        //cardViewModels contains the data
+        cardViewModels.forEach { (cardVM) in
+            let cardView = CardView(frame: .zero)
+            cardView.cardViewModel = cardVM
+            cardsDeckView.addSubview(cardView)
+            cardView.fillSuperview()
+        }
     }
     
     private func setupLayout() {
@@ -43,7 +58,5 @@ class ViewController: UIViewController {
         
         overallStackView.bringSubviewToFront(cardsDeckView)
     }
-    
-    
 }
 
