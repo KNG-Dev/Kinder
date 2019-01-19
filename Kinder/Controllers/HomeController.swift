@@ -29,8 +29,16 @@ class HomeController: UIViewController {
     //MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        
         setupLayout()
         setupDummyCards()
+    }
+    
+    @objc func handleSettings() {
+        print("Show registration page")
+        present(RegistrationViewController(), animated: true, completion: nil)
     }
     
     //MARK: - Private Methods
