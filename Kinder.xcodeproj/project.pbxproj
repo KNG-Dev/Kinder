@@ -22,6 +22,7 @@
 		349F50D921F3CF92000B25D7 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349F50D821F3CF92000B25D7 /* CustomTextField.swift */; };
 		349F50DB21F62AC0000B25D7 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */; };
 		34B6F63C21F80CEF0047E9BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B6F63B21F80CEF0047E9BD /* GoogleService-Info.plist */; };
+		34B6F63E21F8F11A0047E9BD /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6F63D21F8F11A0047E9BD /* Bindable.swift */; };
 		34EA521121F0C8D2002CADC8 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA521021F0C8D2002CADC8 /* Advertiser.swift */; };
 		60C1D1F898E5BE233870A69A /* Pods_Kinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA23EB1C3E38C2F18E42290D /* Pods_Kinder.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		349F50D821F3CF92000B25D7 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		34B6F63B21F80CEF0047E9BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		34B6F63D21F8F11A0047E9BD /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		34EA521021F0C8D2002CADC8 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		8BF00ACD5024FAA23138953A /* Pods-Kinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kinder/Pods-Kinder.debug.xcconfig"; sourceTree = "<group>"; };
 		AA23EB1C3E38C2F18E42290D /* Pods_Kinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 				343F935021E7A6D0001FDF8A /* HomeController.swift */,
 				349F50D621F3C723000B25D7 /* RegistrationViewController.swift */,
 				349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */,
+				34B6F63D21F8F11A0047E9BD /* Bindable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34B6F63E21F8F11A0047E9BD /* Bindable.swift in Sources */,
 				343F935121E7A6D0001FDF8A /* HomeController.swift in Sources */,
 				349F50DB21F62AC0000B25D7 /* RegistrationViewModel.swift in Sources */,
 				349F50D921F3CF92000B25D7 /* CustomTextField.swift in Sources */,

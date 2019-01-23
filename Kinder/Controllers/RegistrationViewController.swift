@@ -12,6 +12,7 @@ import JGProgressHUD
 
 class RegistrationViewController: UIViewController {
 
+    //MARK: - Properties
     let selectPhotoButton: UIButton = {
        let button = UIButton(type: .system)
         button.setTitle("Select Photo", for: .normal)
@@ -20,6 +21,9 @@ class RegistrationViewController: UIViewController {
         button.setTitleColor(.black, for: .normal)
         button.heightAnchor.constraint(equalToConstant: 275).isActive = true
         button.layer.cornerRadius = 16
+        button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
+        button.imageView?.contentMode = .scaleAspectFill
+        button.clipsToBounds = true
         return button
     }()
     
@@ -49,16 +53,6 @@ class RegistrationViewController: UIViewController {
         return tf
     }()
     
-    @objc fileprivate func handleTextChange(textField: UITextField) {
-        if textField == fullNameTextField {
-            registrationViewModel.fullName = textField.text
-        } else if textField == emailTextField {
-            registrationViewModel.email = textField.text
-        } else {
-            registrationViewModel.password = textField.text
-        }
-    }
-    
     let registerButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Register", for: .normal)
@@ -73,6 +67,29 @@ class RegistrationViewController: UIViewController {
         return button
     }()
     
+    lazy var verticalStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            fullNameTextField,
+            emailTextField,
+            passwordTextField,
+            registerButton
+            ])
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        return stackView
+    }()
+    
+    //make it lazy so you can access it outside viewController
+    lazy var overallStackView = UIStackView(arrangedSubviews: [
+        selectPhotoButton,
+        verticalStackView])
+    
+    //MARK: - Instances
+    let registrationViewModel = RegistrationViewModel()
+    let registeringHUD = JGProgressHUD(style: .dark)
+    let gradientLayer = CAGradientLayer()
+    
+    //MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupGradientLayer()
@@ -82,11 +99,62 @@ class RegistrationViewController: UIViewController {
         setupRegistrationViewModelObserver()
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        gradientLayer.frame = view.bounds
+    }
+    
+    //When using Notification observers, need to detach from Notification Center to avoid retain cycle
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        //        NotificationCenter.default.removeObserver(self)
+    }
+    
+    //MARK: - Layout
+    fileprivate func setupLayout() {
+        view.addSubview(overallStackView)
+        overallStackView.axis = .vertical
+        overallStackView.spacing = 8
+        overallStackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 50, paddingBottom: 0, paddingRight: 50, width: 0, height: 0)
+        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
+    fileprivate func setupGradientLayer() {
+        let topColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
+        let bottomColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
+        
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradientLayer.locations = [0, 1]
+        view.layer.addSublayer(gradientLayer)
+        gradientLayer.frame = view.bounds
+    }
+    
+    
+    //MARK: - Private Functions
+    @objc fileprivate func handleTextChange(textField: UITextField) {
+        if textField == fullNameTextField {
+            registrationViewModel.fullName = textField.text
+        } else if textField == emailTextField {
+            registrationViewModel.email = textField.text
+        } else {
+            registrationViewModel.password = textField.text
+        }
+    }
+    
+    @objc fileprivate func handleSelectPhoto() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
     @objc fileprivate func handleRegister() {
         handleTapDismiss()
-        print("Registering user")
+        print("Registering user using Firebase Auth")
         guard let email = emailTextField.text else { return }
         guard let password = passwordTextField.text else { return }
+        
+        registeringHUD.textLabel.text = "Register"
+        registeringHUD.show(in: view)
         
         Auth.auth().createUser(withEmail: email, password: password) { (res, err) in
             
@@ -107,23 +175,19 @@ class RegistrationViewController: UIViewController {
         hud.dismiss(afterDelay: 4)
     }
     
-    //MARK: - Private
-    let registrationViewModel = RegistrationViewModel()
     fileprivate func setupRegistrationViewModelObserver() {
-        registrationViewModel.isFormValidObserver = { [unowned self ]
-            (isFormValid) in
-            print("Form is changing" , isFormValid)
-            
+        registrationViewModel.bindableIsFormValid.bind { [unowned self] (isFormValid) in
+            guard let isFormValid = isFormValid else { return }
             self.registerButton.isEnabled = isFormValid
-            if isFormValid {
-                self.registerButton.backgroundColor = #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1)
-                self.registerButton.setTitleColor(.white, for: .normal)
-            } else {
-                self.registerButton.backgroundColor = .lightGray
-                self.registerButton.setTitleColor(.darkGray, for: .normal)
-            }
+            self.registerButton.backgroundColor = isFormValid ? #colorLiteral(red: 0.9607843161, green: 0.7058823705, blue: 0.200000003, alpha: 1) : .lightGray
+            self.registerButton.setTitleColor(isFormValid ? .white : .darkGray, for: .normal)
+        }
+        
+        registrationViewModel.bindableImage.bind { [unowned self] (img) in
+            self.selectPhotoButton.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
     }
+    
     fileprivate func setupTapGesture() {
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapDismiss)))
     }
@@ -135,12 +199,6 @@ class RegistrationViewController: UIViewController {
     fileprivate func setupNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    //When using Notification observers, need to detach from Notification Center to avoid retain cycle
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        NotificationCenter.default.removeObserver(self)
     }
     
     @objc fileprivate func handleKeyboardShow(notification: Notification) {
@@ -161,23 +219,6 @@ class RegistrationViewController: UIViewController {
         }, completion: nil)
     }
     
-    lazy var verticalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
-            fullNameTextField,
-            emailTextField,
-            passwordTextField,
-            registerButton
-            ])
-        stackView.axis = .vertical
-        stackView.spacing = 8
-        return stackView
-    }()
-    
-    //make it lazy so you can access it outside viewController
-    lazy var overallStackView = UIStackView(arrangedSubviews: [
-        selectPhotoButton,
-        verticalStackView])
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         if self.traitCollection.verticalSizeClass == .compact {
             overallStackView.axis = .horizontal
@@ -192,29 +233,17 @@ class RegistrationViewController: UIViewController {
             selectPhotoButtonWidthAnchor.isActive = false
         }
     }
-    
-    fileprivate func setupLayout() {
-        view.addSubview(overallStackView)
-        overallStackView.axis = .vertical
-        overallStackView.spacing = 8
-        overallStackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 50, paddingBottom: 0, paddingRight: 50, width: 0, height: 0)
-        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+}
+
+//MARK: - ImagePicker Delegate
+extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[.originalImage] as? UIImage
+        registrationViewModel.bindableImage.value = image
+        dismiss(animated: true, completion: nil)
     }
-    
-    let gradientLayer = CAGradientLayer()
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        gradientLayer.frame = view.bounds
-    }
-    
-    fileprivate func setupGradientLayer() {
-        let topColor = #colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1)
-        let bottomColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
-        
-        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
-        gradientLayer.locations = [0, 1]
-        view.layer.addSublayer(gradientLayer)
-        gradientLayer.frame = view.bounds
+   
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
 }
