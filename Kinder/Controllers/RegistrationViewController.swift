@@ -19,7 +19,6 @@ class RegistrationViewController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .heavy)
         button.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         button.setTitleColor(.black, for: .normal)
-        button.heightAnchor.constraint(equalToConstant: 275).isActive = true
         button.layer.cornerRadius = 16
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         button.imageView?.contentMode = .scaleAspectFill
@@ -149,30 +148,13 @@ class RegistrationViewController: UIViewController {
     
     @objc fileprivate func handleRegister() {
         handleTapDismiss()
-        print("Registering user using Firebase Auth")
-        guard let email = emailTextField.text else { return }
-        guard let password = passwordTextField.text else { return }
-        
-        registeringHUD.textLabel.text = "Register"
-        registeringHUD.show(in: view)
-        
-        Auth.auth().createUser(withEmail: email, password: password) { (res, err) in
-            
+        registrationViewModel.performRegistration { [weak self] (err) in
             if let err = err {
-                self.showHUDWithError(error: err)
+                self?.showHUDWithError(error: err)
                 return
             }
-            
-            print("Sucessfully register user:", res?.user.uid ?? "")
+            print("Finished registering our user")
         }
-    }
-    
-    fileprivate func showHUDWithError(error: Error) {
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Failed registration"
-        hud.detailTextLabel.text = error.localizedDescription
-        hud.show(in: self.view)
-        hud.dismiss(afterDelay: 4)
     }
     
     fileprivate func setupRegistrationViewModelObserver() {
@@ -186,6 +168,24 @@ class RegistrationViewController: UIViewController {
         registrationViewModel.bindableImage.bind { [unowned self] (img) in
             self.selectPhotoButton.setImage(img?.withRenderingMode(.alwaysOriginal), for: .normal)
         }
+        
+        registrationViewModel.bindableIsRegistering.bind { [unowned self] (isRegistering) in
+            if isRegistering == true {
+                self.registeringHUD.textLabel.text = "Registering"
+                self.registeringHUD.show(in: self.view)
+            } else {
+                self.registeringHUD.dismiss()
+            }
+        }
+    }
+    
+    fileprivate func showHUDWithError(error: Error) {
+        registeringHUD.dismiss()
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Failed registration"
+        hud.detailTextLabel.text = error.localizedDescription
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 4)
     }
     
     fileprivate func setupTapGesture() {
