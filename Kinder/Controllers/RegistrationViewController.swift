@@ -11,7 +11,9 @@ import Firebase
 import JGProgressHUD
 
 class RegistrationViewController: UIViewController {
-
+    
+    var delegate: LoginViewControllerDelegate?
+    
     //MARK: - Properties
     let selectPhotoButton: UIButton = {
        let button = UIButton(type: .system)
@@ -83,6 +85,15 @@ class RegistrationViewController: UIViewController {
         selectPhotoButton,
         verticalStackView])
     
+    let goToLoginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Go to Login", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        button.addTarget(self, action: #selector(handleGoToLogin), for: .touchUpInside)
+        return button
+    }()
+    
     //MARK: - Instances
     let registrationViewModel = RegistrationViewModel()
     let registeringHUD = JGProgressHUD(style: .dark)
@@ -111,11 +122,15 @@ class RegistrationViewController: UIViewController {
     
     //MARK: - Layout
     fileprivate func setupLayout() {
+        navigationController?.isNavigationBarHidden = true
         view.addSubview(overallStackView)
         overallStackView.axis = .vertical
         overallStackView.spacing = 8
         overallStackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 50, paddingBottom: 0, paddingRight: 50, width: 0, height: 0)
         overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        view.addSubview(goToLoginButton)
+        goToLoginButton.anchors(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     fileprivate func setupGradientLayer() {
@@ -128,8 +143,12 @@ class RegistrationViewController: UIViewController {
         gradientLayer.frame = view.bounds
     }
     
-    
     //MARK: - Private Functions
+    @objc fileprivate func handleGoToLogin() {
+        let loginController = LoginViewController()
+        navigationController?.pushViewController(loginController, animated: true)
+    }
+    
     @objc fileprivate func handleTextChange(textField: UITextField) {
         if textField == fullNameTextField {
             registrationViewModel.fullName = textField.text
@@ -154,6 +173,7 @@ class RegistrationViewController: UIViewController {
                 return
             }
             print("Finished registering our user")
+            self?.delegate?.didFinishLoginIn()
         }
     }
     

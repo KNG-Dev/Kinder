@@ -9,7 +9,13 @@
 import UIKit
 import SDWebImage
 
+protocol CardViewDelegate: class {
+    func didTapMoreInfo()
+}
+
 class CardView: UIView {
+    
+    weak var delegate: CardViewDelegate?
 
     var cardViewModel: CardViewModel! {
         didSet {
@@ -36,9 +42,12 @@ class CardView: UIView {
     }
     
     fileprivate func setupImageIndexObserver() {
-        cardViewModel.imageIndexObserver = { [weak self] (index, image) in
+        cardViewModel.imageIndexObserver = { [weak self] (index, imageUrl) in
             print("Changing photo from view model")
-            self?.imageView.image = image
+            
+            if let url = URL(string: imageUrl ?? "") {
+                self?.imageView.sd_setImage(with: url, completed: nil)
+            }
             
             self?.barsStackView.arrangedSubviews.forEach({ (v) in
                 v.backgroundColor = self?.barDeselectedColor
@@ -85,6 +94,13 @@ class CardView: UIView {
         gradientLayer.frame = self.frame
     }
     
+    fileprivate let moreInfoButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(#imageLiteral(resourceName: "info_icon").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.addTarget(self, action: #selector(handleMoreInfo), for: .touchUpInside)
+        return button
+    }()
+    
     fileprivate func setupLayout() {
         layer.cornerRadius = 10
         clipsToBounds = true
@@ -102,6 +118,14 @@ class CardView: UIView {
         informationLabel.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 16, paddingBottom: 16, paddingRight: 16, width: 0, height: 0)
         informationLabel.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         informationLabel.numberOfLines = 0
+        
+        addSubview(moreInfoButton)
+        moreInfoButton.anchors(top: nil, leading: nil, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 16, right: 16), size: .init(width: 44, height: 44))
+    }
+    
+    @objc fileprivate func handleMoreInfo() {
+        print("present UserDetailsPage")
+        delegate?.didTapMoreInfo()
     }
     
     fileprivate let barsStackView = UIStackView()

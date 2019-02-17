@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		34130147220DD7D600CFABC4 /* AgeRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34130146220DD7D600CFABC4 /* AgeRangeCell.swift */; };
+		34130149220DF51E00CFABC4 /* Firebase+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34130148220DF51E00CFABC4 /* Firebase+Utils.swift */; };
+		341301552215CA4A00CFABC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301542215CA4A00CFABC4 /* LoginViewController.swift */; };
+		341301572215CA5500CFABC4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301562215CA5500CFABC4 /* LoginViewModel.swift */; };
+		341301642219C8F400CFABC4 /* UserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301632219C8F400CFABC4 /* UserDetailsController.swift */; };
 		343F934F21E7A6D0001FDF8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F934E21E7A6D0001FDF8A /* AppDelegate.swift */; };
 		343F935121E7A6D0001FDF8A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F935021E7A6D0001FDF8A /* HomeController.swift */; };
 		343F935421E7A6D0001FDF8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 343F935221E7A6D0001FDF8A /* Main.storyboard */; };
@@ -23,12 +28,19 @@
 		349F50DB21F62AC0000B25D7 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */; };
 		34B6F63C21F80CEF0047E9BD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 34B6F63B21F80CEF0047E9BD /* GoogleService-Info.plist */; };
 		34B6F63E21F8F11A0047E9BD /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6F63D21F8F11A0047E9BD /* Bindable.swift */; };
+		34B6F66C2201F73A0047E9BD /* SettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6F66B2201F73A0047E9BD /* SettingsController.swift */; };
+		34B6F66E220209D90047E9BD /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B6F66D220209D90047E9BD /* SettingsCell.swift */; };
 		34EA521121F0C8D2002CADC8 /* Advertiser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34EA521021F0C8D2002CADC8 /* Advertiser.swift */; };
 		60C1D1F898E5BE233870A69A /* Pods_Kinder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AA23EB1C3E38C2F18E42290D /* Pods_Kinder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		178E1C0CEF63F916A1EF5B36 /* Pods-Kinder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kinder.release.xcconfig"; path = "Pods/Target Support Files/Pods-Kinder/Pods-Kinder.release.xcconfig"; sourceTree = "<group>"; };
+		34130146220DD7D600CFABC4 /* AgeRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgeRangeCell.swift; sourceTree = "<group>"; };
+		34130148220DF51E00CFABC4 /* Firebase+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Firebase+Utils.swift"; sourceTree = "<group>"; };
+		341301542215CA4A00CFABC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		341301562215CA5500CFABC4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		341301632219C8F400CFABC4 /* UserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsController.swift; sourceTree = "<group>"; };
 		343F934B21E7A6D0001FDF8A /* Kinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		343F934E21E7A6D0001FDF8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		343F935021E7A6D0001FDF8A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -47,6 +59,8 @@
 		349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		34B6F63B21F80CEF0047E9BD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		34B6F63D21F8F11A0047E9BD /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		34B6F66B2201F73A0047E9BD /* SettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsController.swift; sourceTree = "<group>"; };
+		34B6F66D220209D90047E9BD /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsCell.swift; path = Kinder/SettingsCell.swift; sourceTree = SOURCE_ROOT; };
 		34EA521021F0C8D2002CADC8 /* Advertiser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Advertiser.swift; sourceTree = "<group>"; };
 		8BF00ACD5024FAA23138953A /* Pods-Kinder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kinder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Kinder/Pods-Kinder.debug.xcconfig"; sourceTree = "<group>"; };
 		AA23EB1C3E38C2F18E42290D /* Pods_Kinder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Kinder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,13 +78,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		341301532215CA0300CFABC4 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				341301542215CA4A00CFABC4 /* LoginViewController.swift */,
+				341301562215CA5500CFABC4 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		341301652219C8F900CFABC4 /* User Details */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "User Details";
+			sourceTree = "<group>";
+		};
 		343F934221E7A6D0001FDF8A = {
 			isa = PBXGroup;
 			children = (
 				343F934D21E7A6D0001FDF8A /* Kinder */,
-				343F934C21E7A6D0001FDF8A /* Products */,
-				C6D12F330326104CC34EFF7B /* Pods */,
 				3B25C197B99D75BC13CB1D20 /* Frameworks */,
+				C6D12F330326104CC34EFF7B /* Pods */,
+				343F934C21E7A6D0001FDF8A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,17 +115,17 @@
 		343F934D21E7A6D0001FDF8A /* Kinder */ = {
 			isa = PBXGroup;
 			children = (
-				34554D5921EF8CD50045442D /* ViewModels */,
 				34554D5621EF84D50045442D /* Model */,
+				34554D5921EF8CD50045442D /* ViewModels */,
 				343F936021E7B116001FDF8A /* Views */,
-				343F934E21E7A6D0001FDF8A /* AppDelegate.swift */,
 				34554D5721EF8BBB0045442D /* Controllers */,
 				34554D5821EF8BCA0045442D /* Extensions */,
+				343F934E21E7A6D0001FDF8A /* AppDelegate.swift */,
 				343F935221E7A6D0001FDF8A /* Main.storyboard */,
-				343F935521E7A6D2001FDF8A /* Assets.xcassets */,
 				343F935721E7A6D2001FDF8A /* LaunchScreen.storyboard */,
-				343F935A21E7A6D2001FDF8A /* Info.plist */,
 				34B6F63B21F80CEF0047E9BD /* GoogleService-Info.plist */,
+				343F935A21E7A6D2001FDF8A /* Info.plist */,
+				343F935521E7A6D2001FDF8A /* Assets.xcassets */,
 			);
 			path = Kinder;
 			sourceTree = "<group>";
@@ -107,6 +137,8 @@
 				343F936121E7B13C001FDF8A /* HomeBottomControlsStackView.swift */,
 				343F936921E7E079001FDF8A /* CardView.swift */,
 				349F50D821F3CF92000B25D7 /* CustomTextField.swift */,
+				34B6F66D220209D90047E9BD /* SettingsCell.swift */,
+				34130146220DD7D600CFABC4 /* AgeRangeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -123,10 +155,13 @@
 		34554D5721EF8BBB0045442D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				341301532215CA0300CFABC4 /* Login */,
 				343F935021E7A6D0001FDF8A /* HomeController.swift */,
 				349F50D621F3C723000B25D7 /* RegistrationViewController.swift */,
 				349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */,
-				34B6F63D21F8F11A0047E9BD /* Bindable.swift */,
+				34B6F66B2201F73A0047E9BD /* SettingsController.swift */,
+				341301632219C8F400CFABC4 /* UserDetailsController.swift */,
+				341301652219C8F900CFABC4 /* User Details */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -135,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				343F936321E7B408001FDF8A /* Extensions.swift */,
+				34130148220DF51E00CFABC4 /* Firebase+Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -142,6 +178,7 @@
 		34554D5921EF8CD50045442D /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				34B6F63D21F8F11A0047E9BD /* Bindable.swift */,
 				34554D5A21EF8CE40045442D /* CardViewModel.swift */,
 			);
 			path = ViewModels;
@@ -326,19 +363,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				341301552215CA4A00CFABC4 /* LoginViewController.swift in Sources */,
 				34B6F63E21F8F11A0047E9BD /* Bindable.swift in Sources */,
 				343F935121E7A6D0001FDF8A /* HomeController.swift in Sources */,
 				349F50DB21F62AC0000B25D7 /* RegistrationViewModel.swift in Sources */,
 				349F50D921F3CF92000B25D7 /* CustomTextField.swift in Sources */,
 				343F936221E7B13C001FDF8A /* HomeBottomControlsStackView.swift in Sources */,
 				34EA521121F0C8D2002CADC8 /* Advertiser.swift in Sources */,
+				341301642219C8F400CFABC4 /* UserDetailsController.swift in Sources */,
 				343F934F21E7A6D0001FDF8A /* AppDelegate.swift in Sources */,
+				34130147220DD7D600CFABC4 /* AgeRangeCell.swift in Sources */,
 				349F50D721F3C723000B25D7 /* RegistrationViewController.swift in Sources */,
+				34130149220DF51E00CFABC4 /* Firebase+Utils.swift in Sources */,
 				343F936421E7B408001FDF8A /* Extensions.swift in Sources */,
 				34554D5B21EF8CE40045442D /* CardViewModel.swift in Sources */,
+				34B6F66C2201F73A0047E9BD /* SettingsController.swift in Sources */,
 				343F936A21E7E079001FDF8A /* CardView.swift in Sources */,
 				343F936621E7B4B5001FDF8A /* TopNavigationStackView.swift in Sources */,
 				34554D5521EF84CD0045442D /* User.swift in Sources */,
+				341301572215CA5500CFABC4 /* LoginViewModel.swift in Sources */,
+				34B6F66E220209D90047E9BD /* SettingsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
