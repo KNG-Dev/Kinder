@@ -213,7 +213,7 @@ class RegistrationViewController: UIViewController {
     }
     
     @objc fileprivate func handleTapDismiss() {
-        view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     fileprivate func setupNotificationObservers() {
@@ -260,6 +260,7 @@ extension RegistrationViewController: UIImagePickerControllerDelegate, UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = info[.originalImage] as? UIImage
         registrationViewModel.bindableImage.value = image
+        registrationViewModel.checkFormValidity()
         dismiss(animated: true, completion: nil)
     }
    

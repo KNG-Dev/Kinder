@@ -21,6 +21,7 @@
 		343F936421E7B408001FDF8A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F936321E7B408001FDF8A /* Extensions.swift */; };
 		343F936621E7B4B5001FDF8A /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F936521E7B4B5001FDF8A /* TopNavigationStackView.swift */; };
 		343F936A21E7E079001FDF8A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F936921E7E079001FDF8A /* CardView.swift */; };
+		3445A7752223024C00A68DD9 /* SwipingPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445A7742223024C00A68DD9 /* SwipingPhotosController.swift */; };
 		34554D5521EF84CD0045442D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34554D5421EF84CD0045442D /* User.swift */; };
 		34554D5B21EF8CE40045442D /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34554D5A21EF8CE40045442D /* CardViewModel.swift */; };
 		349F50D721F3C723000B25D7 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349F50D621F3C723000B25D7 /* RegistrationViewController.swift */; };
@@ -52,6 +53,7 @@
 		343F936321E7B408001FDF8A /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		343F936521E7B4B5001FDF8A /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
 		343F936921E7E079001FDF8A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		3445A7742223024C00A68DD9 /* SwipingPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPhotosController.swift; sourceTree = "<group>"; };
 		34554D5421EF84CD0045442D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		34554D5A21EF8CE40045442D /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		349F50D621F3C723000B25D7 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
@@ -90,8 +92,19 @@
 		341301652219C8F900CFABC4 /* User Details */ = {
 			isa = PBXGroup;
 			children = (
+				341301632219C8F400CFABC4 /* UserDetailsController.swift */,
+				3445A7742223024C00A68DD9 /* SwipingPhotosController.swift */,
 			);
 			path = "User Details";
+			sourceTree = "<group>";
+		};
+		3413016D221DA7B400CFABC4 /* Registration */ = {
+			isa = PBXGroup;
+			children = (
+				349F50D621F3C723000B25D7 /* RegistrationViewController.swift */,
+				349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */,
+			);
+			path = Registration;
 			sourceTree = "<group>";
 		};
 		343F934221E7A6D0001FDF8A = {
@@ -155,13 +168,11 @@
 		34554D5721EF8BBB0045442D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				341301532215CA0300CFABC4 /* Login */,
-				343F935021E7A6D0001FDF8A /* HomeController.swift */,
-				349F50D621F3C723000B25D7 /* RegistrationViewController.swift */,
-				349F50DA21F62AC0000B25D7 /* RegistrationViewModel.swift */,
-				34B6F66B2201F73A0047E9BD /* SettingsController.swift */,
-				341301632219C8F400CFABC4 /* UserDetailsController.swift */,
 				341301652219C8F900CFABC4 /* User Details */,
+				341301532215CA0300CFABC4 /* Login */,
+				3413016D221DA7B400CFABC4 /* Registration */,
+				343F935021E7A6D0001FDF8A /* HomeController.swift */,
+				34B6F66B2201F73A0047E9BD /* SettingsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -383,6 +394,7 @@
 				34554D5521EF84CD0045442D /* User.swift in Sources */,
 				341301572215CA5500CFABC4 /* LoginViewModel.swift in Sources */,
 				34B6F66E220209D90047E9BD /* SettingsCell.swift in Sources */,
+				3445A7752223024C00A68DD9 /* SwipingPhotosController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -231,10 +231,12 @@ class SettingsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         //If section == 0, return 0 rows, otherwise return 1 row
         return section == 0 ? 0 : 1
     }
+    
+    static let defaultMinSeekingAge = 18
+    static let defaultMaxSeekingAge = 50
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
@@ -245,10 +247,13 @@ class SettingsController: UITableViewController {
             ageRangeCell.maxSlider.addTarget(self, action: #selector(handleMaxAgeChange), for: .valueChanged)
             
             //Set up labels on cell
-            ageRangeCell.minLabel.text = "Min \(user?.minSeekingAge ?? -1)"
-            ageRangeCell.maxLabel.text = "Max \(user?.maxSeekingAge ?? -1)"
-            ageRangeCell.minSlider.value = Float(user?.minSeekingAge ?? -1)
-            ageRangeCell.maxSlider.value = Float(user?.maxSeekingAge ?? -1)
+            let minAge = user?.minSeekingAge ?? SettingsController.defaultMinSeekingAge
+            let maxAge = user?.maxSeekingAge ?? SettingsController.defaultMaxSeekingAge
+            
+            ageRangeCell.minLabel.text = "Min \(minAge)"
+            ageRangeCell.maxLabel.text = "Max \(maxAge)"
+            ageRangeCell.minSlider.value = Float(minAge)
+            ageRangeCell.maxSlider.value = Float(maxAge)
             return ageRangeCell
         }
         
@@ -324,13 +329,12 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
                 
                 print("Finish getting download url for image:", url?.absoluteString ?? "")
                 
-                
                 if imageButton == self.image1Button {
                     self.user?.imageUrl1 = url?.absoluteString
                 } else if imageButton == self.image2Button {
                     self.user?.imageUrl2 = url?.absoluteString
                 } else {
-                    self.user?.imageUrl1 = url?.absoluteString
+                    self.user?.imageUrl3 = url?.absoluteString
                 }
             })
         }
