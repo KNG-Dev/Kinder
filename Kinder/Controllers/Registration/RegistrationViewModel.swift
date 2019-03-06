@@ -59,15 +59,9 @@ class RegistrationViewModel {
                     return
                 }
                 
-                self.bindableIsRegistering.value = false
-                print("Download url of our image is:", url?.absoluteString ?? "")
-                
                 //store the download url into Firestore
                 let imageUrl = url?.absoluteString ?? ""
                 self.saveInfoToFirestore(imageUrl: imageUrl, completion: completion)
-                
-//                completion(nil)
-                
             })
         })
     }

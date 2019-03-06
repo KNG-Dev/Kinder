@@ -28,7 +28,6 @@ class CardViewModel {
     fileprivate var imageIndex = 0 {
         didSet {
             let imageUrl = imageUrls[imageIndex]
-//            let image =  UIImage(named: imageName)
             imageIndexObserver?(imageIndex, imageUrl)
             print("Observing index from \(#function) in line \(#line)")
         }

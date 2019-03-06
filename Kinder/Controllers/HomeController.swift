@@ -30,8 +30,6 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
         
         setupLayout()
         fetchCurrentUser()
-        
-//        fetchUserFromFirestore()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,6 +62,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
                 return
             }
             
+//            self.fetchUserFromFirestore()
             self.user = user
             self.fetchSwipes()
         }
