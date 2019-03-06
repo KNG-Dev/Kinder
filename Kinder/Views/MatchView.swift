@@ -11,10 +11,7 @@ import Firebase
 
 class MatchView: UIView {
 
-    var currentUser: User! {
-        didSet {
-        }
-    }
+    var currentUser: User!
     
     var cardUID: String! {
         didSet {
@@ -38,6 +35,8 @@ class MatchView: UIView {
                 self.currentUserImageView.sd_setImage(with: currentUserImageUrl, completed: { (_, _, _, _) in
                     self.setupAnimations()
                 })
+                
+                self.descriptionLabel.text = "You and \(user.name ?? "") have liked\neach other."
             }
         }
     }
@@ -50,7 +49,6 @@ class MatchView: UIView {
     
     fileprivate let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "You match with X, you liked\neach other"
         label.textAlignment = .center
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.font = UIFont.systemFont(ofSize: 20)
@@ -92,7 +90,6 @@ class MatchView: UIView {
         super.init(frame: frame)
         setupBlurView()
         setupLayout()
-//        setupAnimations()
     }
     
     fileprivate func setupBlurView() {
@@ -111,12 +108,12 @@ class MatchView: UIView {
     }
     
     lazy var views = [
-        self.itsAMatchImageView,
-        self.descriptionLabel,
-        self.currentUserImageView,
-        self.cardUserImageView,
-        self.sendMessageButton,
-        self.keepSwipingButton
+        itsAMatchImageView,
+        descriptionLabel,
+        currentUserImageView,
+        cardUserImageView,
+        sendMessageButton,
+        keepSwipingButton
     ]
     
     fileprivate func setupLayout() {
