@@ -16,9 +16,7 @@ class UserDetailsController: UIViewController, UIScrollViewDelegate {
     var cardViewModel: CardViewModel! {
         didSet {
             infoLabel.attributedText = cardViewModel.attributedString
-            guard let firstImageUrl = cardViewModel.imageUrls.first, let url = URL(string: firstImageUrl) else { return }
             swipingPhotosController.cardViewModel = cardViewModel
-
         }
     }
     

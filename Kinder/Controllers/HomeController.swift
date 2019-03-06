@@ -26,6 +26,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         bottomControls.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
+        bottomControls.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
         
         setupLayout()
         fetchCurrentUser()
@@ -64,8 +65,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
             }
             
             self.user = user
-//            self.fetchSwipes()
-            self.fetchUserFromFirestore()
+            self.fetchSwipes()
         }
     }
     
@@ -97,22 +97,120 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
     }
     
     @objc fileprivate func handleRefresh() {
+        cardsDeckView.subviews.forEach({$0.removeFromSuperview()})
         fetchUserFromFirestore()
     }
     
     var topCardView: CardView?
     
-    @objc fileprivate func handleLike() {
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-            self.topCardView?.frame = CGRect(x: 600, y: 0, width: self.topCardView!.frame.width, height: self.topCardView!.frame.height)
+    @objc func handleLike() {
+        saveSwipeToFirestore(didLike: 1)
+        performSwipeAnimation(translation: 700, angle: 15)
+    }
+    
+    @objc func handleDislike() {
+        saveSwipeToFirestore(didLike: 0)
+        performSwipeAnimation(translation: -700, angle: -15)
+    }
+    
+    fileprivate func saveSwipeToFirestore(didLike: Int) {
+        guard let uid = Auth.auth().currentUser?.uid, let cardUID = topCardView?.cardViewModel.uid else { return }
+        
+    
+        let documentData = [cardUID: didLike]
+        
+        Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch swipe document:", err)
+                return
+            }
             
-            let angle = 15 * CGFloat.pi / 180
-            self.topCardView?.transform = CGAffineTransform(rotationAngle: angle)
-            
-        }) { (_) in
-            self.topCardView?.removeFromSuperview()
-            self.topCardView = self.topCardView?.nextCardView
+            if snapshot?.exists == true {
+                //Append save to saved list
+                Firestore.firestore().collection("swipes").document(uid).updateData(documentData) { (err) in
+                    if let err = err {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    
+                    print("Successfully updated swipe...")
+                    if didLike == 1 {
+                        self.checkIfMatchExists(cardUID: cardUID)
+                    }
+                }
+            } else {
+                //Save
+                Firestore.firestore().collection("swipes").document(uid).setData(documentData) { (err) in
+                    if let err = err {
+                        print("Failed to save swipe data:", err)
+                        return
+                    }
+                    
+                    print("Successfully saved swipe...")
+                    if didLike == 1 {
+                        self.checkIfMatchExists(cardUID: cardUID)
+                    }
+                }
+            }
         }
+    }
+    
+    fileprivate func checkIfMatchExists(cardUID: String) {
+        //Detect match between 2 users
+        print("Detecting match")
+        
+        Firestore.firestore().collection("swipes").document(cardUID).getDocument { (snapshot, err) in
+            if let err = err {
+                print("Failed to fetch document for card user:", err)
+                return
+            }
+            
+            guard let data = snapshot?.data() else { return }
+            print(data)
+            
+            guard let uid = Auth.auth().currentUser?.uid else { return }
+            let hasMatched = data[uid] as? Int == 1
+            if hasMatched {
+                print("has Matched")
+                self.presentMatchView(cardUID: cardUID)
+            }
+        }
+    }
+    
+    fileprivate func presentMatchView(cardUID: String) {
+        let matchView = MatchView()
+        matchView.cardUID = cardUID
+        matchView.currentUser = self.user
+        view.addSubview(matchView)
+        matchView.fillSuperview()
+    }
+    
+    fileprivate func performSwipeAnimation(translation: CGFloat, angle: CGFloat) {
+        let duration = 0.5
+        
+        //Use BasicAnimation because UIView.animate can be buggy when moving multiple views simultaneously
+        let translationAnimation = CABasicAnimation(keyPath: "position.x")
+        translationAnimation.toValue = translation
+        translationAnimation.duration = duration
+        translationAnimation.fillMode = .forwards
+        translationAnimation.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        translationAnimation.isRemovedOnCompletion = false
+        
+        let rotationAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotationAnimation.toValue = angle * CGFloat.pi / 180
+        rotationAnimation.duration = duration
+        
+        let cardView = topCardView
+        topCardView = cardView?.nextCardView
+        
+        CATransaction.setCompletionBlock {
+            cardView?.removeFromSuperview()
+            
+        }
+        //Doesnt matter what forKey you use
+        cardView?.layer.add(translationAnimation, forKey: "translation")
+        cardView?.layer.add(rotationAnimation, forKey: "rotation")
+        CATransaction.commit()
     }
     
     var lastFetchUser: User?
@@ -123,6 +221,10 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
         
         //Pagination. Fetch 2 users at a time vs whole list
         let query = Firestore.firestore().collection("users").whereField("age", isGreaterThanOrEqualTo: minAge).whereField("age", isLessThanOrEqualTo: maxAge)
+        
+        //resetting topCardView
+        topCardView = nil
+        
         query.getDocuments { (snapshot, err) in
             self.hud.dismiss()
             if let err = err {
@@ -136,7 +238,10 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
             snapshot?.documents.forEach({ (documentSnapshot) in
                 let userDictionary = documentSnapshot.data()
                 let user = User(dictionary: userDictionary)
-                if user.uid != Auth.auth().currentUser?.uid {
+                let isNotCurrentUser =  user.uid != Auth.auth().currentUser?.uid
+//                let hasNotSwipedBefore = self.swipes[user.uid!] == nil
+                let hasNotSwipedBefore = true
+                if isNotCurrentUser && hasNotSwipedBefore {
                     let cardView = self.setupCardFromUser(user: user)
                     
                     previousCardView?.nextCardView = cardView
@@ -147,7 +252,6 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
                     }
                 }
             })
-            
         }
     }
     
@@ -172,13 +276,20 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
         
         overallStackView.isLayoutMarginsRelativeArrangement = true
         overallStackView.layoutMargins = .init(top: 0, left: 12, bottom: 0, right: 12)
-        
         overallStackView.bringSubviewToFront(cardsDeckView)
     }
 }
 
 //MARK: - CardView Delegate
 extension HomeController: CardViewDelegate {
+    func didSwipeDirection(direction: Bool) {
+        if direction == true {
+            handleLike()
+        } else {
+            handleDislike()
+        }
+    }
+   
     func didTapMoreInfo(cardViewModel: CardViewModel) {
         print("HomeController:", cardViewModel.attributedString)
         let userDetailsController = UserDetailsController()

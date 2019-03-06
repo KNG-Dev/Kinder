@@ -12,23 +12,15 @@ import SDWebImage
 protocol CardViewDelegate: class {
     func didTapMoreInfo(cardViewModel: CardViewModel)
     func didRemoveCard(cardView: CardView)
+    func didSwipeDirection(direction: Bool)
 }
 
 class CardView: UIView {
     
     var nextCardView: CardView?
-    
     weak var delegate: CardViewDelegate?
-
     var cardViewModel: CardViewModel! {
         didSet {
-            //accessing index 0 will crash of imageNames.count == 0
-//            let imageName = cardViewModel.imageUrls.first ?? ""
-//            Load image using URL
-//            if let url = URL(string: imageName) {
-//                imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "photo_placeholder"), options: .continueInBackground, completed: nil)
-//            }
-        
             swipingPhotosController.cardViewModel = self.cardViewModel
             informationLabel.attributedText = cardViewModel.attributedString
             informationLabel.textAlignment = cardViewModel.textAlignment
@@ -47,11 +39,6 @@ class CardView: UIView {
     fileprivate func setupImageIndexObserver() {
         cardViewModel.imageIndexObserver = { [weak self] (index, imageUrl) in
             print("Changing photo from view model")
-            
-//            if let url = URL(string: imageUrl ?? "") {
-//                self?.imageView.sd_setImage(with: url, placeholderImage: UIImage(named: "photo_placeholder"), options: .continueInBackground, completed: nil)
-//            }
-            
             self?.barsStackView.arrangedSubviews.forEach({ (v) in
                 v.backgroundColor = self?.barDeselectedColor
             })
@@ -177,28 +164,21 @@ class CardView: UIView {
         let translationDirection: CGFloat = gesture.translation(in: nil).x > 0 ? 1 : -1
         let shouldDismissCard = abs(gesture.translation(in: nil).x) > threshold
         
-        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
-            if shouldDismissCard {
-                self.frame = CGRect(x: 600 * translationDirection, y: 0, width: self.frame.width, height: self.frame.height)
-                
+        //hack solution
+        if shouldDismissCard {
+            if translationDirection == 1 {
+                delegate?.didSwipeDirection(direction: true)
             } else {
+                delegate?.didSwipeDirection(direction: false)
+            }
+        } else {
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0.1, options: .curveEaseOut, animations: {
                 self.transform = .identity
-            }
-            
-        }) { (_) in
-            print("Completed animation")
-            self.transform = .identity
-            if shouldDismissCard {
-                self.removeFromSuperview()
-                
-                //reset topCardView inside of HomeController
-                self.delegate?.didRemoveCard(cardView: self)
-            }
+            })
         }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

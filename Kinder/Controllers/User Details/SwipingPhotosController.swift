@@ -12,7 +12,6 @@ class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSou
     
     var cardViewModel: CardViewModel! {
         didSet {
-            print(cardViewModel.attributedString)
             controllers = cardViewModel.imageUrls.map({ (imageUrl) -> UIViewController in
                 let photoController = PhotoController(imageUrl: imageUrl)
                 return photoController
@@ -70,7 +69,7 @@ class SwipingPhotosController: UIPageViewController, UIPageViewControllerDataSou
             paddingTop += UIApplication.shared.statusBarFrame.height + 8
         }
         
-        barsStackView.anchors(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: paddingTop, left: 8, bottom: 0, right: 8), size: .init(width: 9, height: 4))
+        barsStackView.anchors(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: paddingTop, left: 8, bottom: 0, right: 8), size: .init(width: 0, height: 4))
     }
     
     fileprivate func disableSwipeAbility() {

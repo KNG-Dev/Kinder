@@ -101,6 +101,8 @@ class LoginViewController: UIViewController {
     @objc fileprivate func handleTextChange(textField: UITextField) {
         if textField == emailTextField {
             loginViewModel.email = textField.text
+           
+            
         } else {
             loginViewModel.password = textField.text
         }
@@ -135,7 +137,7 @@ class LoginViewController: UIViewController {
         
         loginViewModel.isLoggingIn.bind { [unowned self] (isRegistering) in
             if isRegistering == true {
-                self.loginHUD.textLabel.text = "Register"
+                self.loginHUD.textLabel.text = "Logging In"
                 self.loginHUD.show(in: self.view)
             } else {
                 self.loginHUD.dismiss()
