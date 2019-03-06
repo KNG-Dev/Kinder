@@ -62,7 +62,6 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
                 return
             }
             
-//            self.fetchUserFromFirestore()
             self.user = user
             self.fetchSwipes()
         }
@@ -77,10 +76,11 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
                 return
             }
             
+            self.fetchUserFromFirestore()
             print("Swipes:", snapshot?.data() ?? "")
             guard let data = snapshot?.data() as? [String: Int] else { return }
             self.swipes = data
-            self.fetchUserFromFirestore()
+            
         }
     }
     
