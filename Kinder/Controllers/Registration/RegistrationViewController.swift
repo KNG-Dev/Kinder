@@ -129,6 +129,8 @@ class RegistrationViewController: UIViewController {
         overallStackView.anchor(top: nil, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 50, paddingBottom: 0, paddingRight: 50, width: 0, height: 0)
         overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
+        selectPhotoButtonHeightAnchor.isActive = true
+        
         view.addSubview(goToLoginButton)
         goToLoginButton.anchors(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }

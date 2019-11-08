@@ -40,6 +40,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
             let registrationViewController = RegistrationViewController()
             registrationViewController.delegate = self
             let navController = UINavigationController(rootViewController: registrationViewController)
+            navController.modalPresentationStyle = .fullScreen
             present(navController, animated: true, completion: nil)
         }
     }
