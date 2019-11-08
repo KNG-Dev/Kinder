@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,6 +12,8 @@
 		341301552215CA4A00CFABC4 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301542215CA4A00CFABC4 /* LoginViewController.swift */; };
 		341301572215CA5500CFABC4 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301562215CA5500CFABC4 /* LoginViewModel.swift */; };
 		341301642219C8F400CFABC4 /* UserDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341301632219C8F400CFABC4 /* UserDetailsController.swift */; };
+		34284B4D2375D28C0045F257 /* MatchesMessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34284B4C2375D28C0045F257 /* MatchesMessagesController.swift */; };
+		34284B502375D5F50045F257 /* LBTATools in Frameworks */ = {isa = PBXBuildFile; productRef = 34284B4F2375D5F50045F257 /* LBTATools */; };
 		343F934F21E7A6D0001FDF8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F934E21E7A6D0001FDF8A /* AppDelegate.swift */; };
 		343F935121E7A6D0001FDF8A /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F935021E7A6D0001FDF8A /* HomeController.swift */; };
 		343F935421E7A6D0001FDF8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 343F935221E7A6D0001FDF8A /* Main.storyboard */; };
@@ -22,6 +24,7 @@
 		343F936621E7B4B5001FDF8A /* TopNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F936521E7B4B5001FDF8A /* TopNavigationStackView.swift */; };
 		343F936A21E7E079001FDF8A /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F936921E7E079001FDF8A /* CardView.swift */; };
 		3445A7752223024C00A68DD9 /* SwipingPhotosController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3445A7742223024C00A68DD9 /* SwipingPhotosController.swift */; };
+		344DF4A7237625A500E9AA73 /* MatchesNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344DF4A6237625A500E9AA73 /* MatchesNavBar.swift */; };
 		34529C3B223017B9008592C8 /* MatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34529C3A223017B9008592C8 /* MatchView.swift */; };
 		34529C3D2230224A008592C8 /* SendMessageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34529C3C2230224A008592C8 /* SendMessageButton.swift */; };
 		34529C3F223025AE008592C8 /* KeepSwipingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34529C3E223025AE008592C8 /* KeepSwipingButton.swift */; };
@@ -45,6 +48,7 @@
 		341301542215CA4A00CFABC4 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		341301562215CA5500CFABC4 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		341301632219C8F400CFABC4 /* UserDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsController.swift; sourceTree = "<group>"; };
+		34284B4C2375D28C0045F257 /* MatchesMessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesMessagesController.swift; sourceTree = "<group>"; };
 		343F934B21E7A6D0001FDF8A /* Kinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		343F934E21E7A6D0001FDF8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		343F935021E7A6D0001FDF8A /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
@@ -57,6 +61,7 @@
 		343F936521E7B4B5001FDF8A /* TopNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNavigationStackView.swift; sourceTree = "<group>"; };
 		343F936921E7E079001FDF8A /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		3445A7742223024C00A68DD9 /* SwipingPhotosController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipingPhotosController.swift; sourceTree = "<group>"; };
+		344DF4A6237625A500E9AA73 /* MatchesNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchesNavBar.swift; sourceTree = "<group>"; };
 		34529C3A223017B9008592C8 /* MatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchView.swift; sourceTree = "<group>"; };
 		34529C3C2230224A008592C8 /* SendMessageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendMessageButton.swift; sourceTree = "<group>"; };
 		34529C3E223025AE008592C8 /* KeepSwipingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepSwipingButton.swift; sourceTree = "<group>"; };
@@ -80,6 +85,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				60C1D1F898E5BE233870A69A /* Pods_Kinder.framework in Frameworks */,
+				34284B502375D5F50045F257 /* LBTATools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +167,7 @@
 				349F50D821F3CF92000B25D7 /* CustomTextField.swift */,
 				34B6F66D220209D90047E9BD /* SettingsCell.swift */,
 				34130146220DD7D600CFABC4 /* AgeRangeCell.swift */,
+				344DF4A6237625A500E9AA73 /* MatchesNavBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 				341301532215CA0300CFABC4 /* Login */,
 				3413016D221DA7B400CFABC4 /* Registration */,
 				343F935021E7A6D0001FDF8A /* HomeController.swift */,
+				34284B4C2375D28C0045F257 /* MatchesMessagesController.swift */,
 				34B6F66B2201F73A0047E9BD /* SettingsController.swift */,
 			);
 			path = Controllers;
@@ -239,6 +247,9 @@
 			dependencies = (
 			);
 			name = Kinder;
+			packageProductDependencies = (
+				34284B4F2375D5F50045F257 /* LBTATools */,
+			);
 			productName = Kinder;
 			productReference = 343F934B21E7A6D0001FDF8A /* Kinder.app */;
 			productType = "com.apple.product-type.application";
@@ -267,6 +278,9 @@
 				Base,
 			);
 			mainGroup = 343F934221E7A6D0001FDF8A;
+			packageReferences = (
+				34284B4E2375D5F50045F257 /* XCRemoteSwiftPackageReference "LBTATools" */,
+			);
 			productRefGroup = 343F934C21E7A6D0001FDF8A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -349,6 +363,7 @@
 				34130147220DD7D600CFABC4 /* AgeRangeCell.swift in Sources */,
 				34529C3B223017B9008592C8 /* MatchView.swift in Sources */,
 				349F50D721F3C723000B25D7 /* RegistrationViewController.swift in Sources */,
+				34284B4D2375D28C0045F257 /* MatchesMessagesController.swift in Sources */,
 				34130149220DF51E00CFABC4 /* Firebase+Utils.swift in Sources */,
 				343F936421E7B408001FDF8A /* Extensions.swift in Sources */,
 				34529C3D2230224A008592C8 /* SendMessageButton.swift in Sources */,
@@ -361,6 +376,7 @@
 				341301572215CA5500CFABC4 /* LoginViewModel.swift in Sources */,
 				34B6F66E220209D90047E9BD /* SettingsCell.swift in Sources */,
 				3445A7752223024C00A68DD9 /* SwipingPhotosController.swift in Sources */,
+				344DF4A7237625A500E9AA73 /* MatchesNavBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,6 +578,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		34284B4E2375D5F50045F257 /* XCRemoteSwiftPackageReference "LBTATools" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bhlvoong/LBTATools.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		34284B4F2375D5F50045F257 /* LBTATools */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 34284B4E2375D5F50045F257 /* XCRemoteSwiftPackageReference "LBTATools" */;
+			productName = LBTATools;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 343F934321E7A6D0001FDF8A /* Project object */;
 }

@@ -23,7 +23,10 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.navigationBar.isHidden = true
+        
         topStackView.settingsButton.addTarget(self, action: #selector(handleSettings), for: .touchUpInside)
+        topStackView.messageButton.addTarget(self, action: #selector(handleMessages), for: .touchUpInside)
         bottomControls.refreshButton.addTarget(self, action: #selector(handleRefresh), for: .touchUpInside)
         bottomControls.likeButton.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         bottomControls.dislikeButton.addTarget(self, action: #selector(handleDislike), for: .touchUpInside)
@@ -87,6 +90,12 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
     
     func didSaveSettings() {
         fetchCurrentUser()
+    }
+    
+    @objc func handleMessages() {
+        let vc = MatchesMessagesController()
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @objc func handleSettings() {

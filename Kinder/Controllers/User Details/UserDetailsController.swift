@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LBTATools
 import SDWebImage
 
 class UserDetailsController: UIViewController, UIScrollViewDelegate {
