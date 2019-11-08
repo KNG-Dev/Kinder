@@ -33,14 +33,14 @@ class RegistrationViewController: UIViewController {
     
     let fullNameTextField: CustomTextField = {
         let tf = CustomTextField(padding: 16, height: 50)
-        tf.placeholder = "Enter Full Name"
+        tf.attributedPlaceholder = NSAttributedString(string: "Enter Full Name", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
     
     let emailTextField: CustomTextField = {
         let tf = CustomTextField(padding: 16, height: 50)
-        tf.placeholder = "Enter Email"
+        tf.attributedPlaceholder = NSAttributedString(string: "Enter Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         tf.keyboardType = .emailAddress
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
@@ -48,7 +48,7 @@ class RegistrationViewController: UIViewController {
     
     let passwordTextField: CustomTextField = {
         let tf = CustomTextField(padding: 16, height: 50)
-        tf.placeholder = "Enter Password"
+        tf.attributedPlaceholder = NSAttributedString(string: "Enter Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
         tf.isSecureTextEntry = true
         tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
