@@ -101,8 +101,6 @@ class LoginViewController: UIViewController {
     @objc fileprivate func handleTextChange(textField: UITextField) {
         if textField == emailTextField {
             loginViewModel.email = textField.text
-           
-            
         } else {
             loginViewModel.password = textField.text
         }

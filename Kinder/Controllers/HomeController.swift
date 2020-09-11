@@ -38,7 +38,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //kick user out when they log out
+        //kick user out when they log out 
         if Auth.auth().currentUser == nil {
             let registrationViewController = RegistrationViewController()
             registrationViewController.delegate = self
@@ -54,7 +54,9 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
     }
     
     fileprivate let hud = JGProgressHUD(style: .dark)
+    
     fileprivate func fetchCurrentUser() {
+        print(#function)
         hud.textLabel.text = "Loading"
         hud.show(in: view)
         
@@ -68,12 +70,14 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
             
             self.user = user
             self.fetchSwipes()
+            
         }
     }
     
     var swipes = [String: Int]()
     fileprivate func fetchSwipes() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
+       
         Firestore.firestore().collection("swipes").document(uid).getDocument { (snapshot, err) in
             if let err = err {
                 print("Failed to fetch swipes info for currently logged in user", err)
@@ -84,7 +88,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
             print("Swipes:", snapshot?.data() ?? "")
             guard let data = snapshot?.data() as? [String: Int] else { return }
             self.swipes = data
-            
+            self.hud.dismiss()
         }
     }
     
@@ -102,6 +106,7 @@ class HomeController: UIViewController, LoginViewControllerDelegate, SettingsCon
         let settingsController = SettingsController()
         settingsController.delegate = self
         let navController = UINavigationController(rootViewController: settingsController)
+        navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
     }
     

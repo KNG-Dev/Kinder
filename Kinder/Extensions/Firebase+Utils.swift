@@ -17,7 +17,6 @@ extension Firestore {
                 return
             }
             
-            
             //fetch User
             guard let dictionary = snapshot?.data() else {
                 let error = NSError(domain: "kinder-7fd50.firebaseapp.com", code: 500, userInfo: [NSLocalizedDescriptionKey: "No user found in Firestore"])

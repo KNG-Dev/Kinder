@@ -125,6 +125,7 @@ class SettingsController: UITableViewController {
         print("Selecting photo using \(#function) from line \(#line)")
         let imagePicker = CustomImagePickerController()
         imagePicker.delegate = self
+        imagePicker.allowsEditing = true
         imagePicker.imageButton = button
         present(imagePicker, animated: true, completion: nil)
     }
@@ -298,9 +299,18 @@ class SettingsController: UITableViewController {
 //MARK: - ImagePicker Delegate
 extension SettingsController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let selectedImage = info[.originalImage] as? UIImage
+        
+        var image: UIImage?
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            image = editedImage
+        } else {
+            let selectedImage = info[.originalImage] as? UIImage
+            image = selectedImage
+        }
+        
         let imageButton = (picker as? CustomImagePickerController)?.imageButton
-        imageButton?.setImage(selectedImage?.withRenderingMode(.alwaysOriginal), for: .normal)
+        imageButton?.setImage(image?.withRenderingMode(.alwaysOriginal), for: .normal)
         dismiss(animated: true, completion: nil)
         
         let hud = JGProgressHUD(style: .dark)
@@ -309,7 +319,7 @@ extension SettingsController: UIImagePickerControllerDelegate, UINavigationContr
         
         let filename = UUID().uuidString
         let ref = Storage.storage().reference(withPath: "/images/\(filename)")
-        guard let uploadedData = selectedImage?.jpegData(compressionQuality: 0.75) else { return }
+        guard let uploadedData = image?.jpegData(compressionQuality: 0.75) else { return }
         ref.putData(uploadedData, metadata: nil) { (nil, err) in
             
             if let err = err {
