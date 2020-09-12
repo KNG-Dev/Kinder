@@ -15,10 +15,9 @@ Recreated Tinder with cool animations.
 
 <p align="center">
 	<img src="/Gifs/Kinder1.gif" alt="Screenshot" width="240" height="482">
-	<img src="/images/AlphaRex_Detail.png" alt="Screenshot" width="240" height="482">
-	<img src="/images/AlphaRex_MoreDetail.png" alt="Screenshot" width="240" height="482">
+	<img src="/Gifs/Kinder2.gif" alt="Screenshot" width="240" height="482">
+	<img src="/Gifs/Kinder3.gif" alt="Screenshot" width="240" height="482">
 </p>
 
-<img src="AppleWalletAnimation.gif" width="200" />        <img src="FacebookHome.gif" width="200" />
 
 
